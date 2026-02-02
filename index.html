@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #ff2f7e, #6b002c);
+}
+
+/* Scene */
+.scene {
+  position: fixed;
+  inset: 0;
+}
+
+/* Title */
+.title {
+  position: absolute;
+  top: 18%;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(30px, 6vw, 58px);
+  color: #ffd6e8;
+  text-shadow: 0 12px 35px rgba(0,0,0,0.45);
+}
+
+/* Buttons */
+button {
+  position: fixed;
+  padding: 16px 42px;
+  border-radius: 50px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#yes {
+  bottom: 22%;
+  left: 50%;
+  transform: translateX(-120%);
+  background: linear-gradient(45deg, #ff7aa8, #ffd1a8);
+  color: #5b0030;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+#no {
+  bottom: 22%;
+  left: 50%;
+  transform: translateX(20%);
+  background: white;
+  color: #b0004b;
+}
+
+/* Reveal */
+.reveal {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #ff6aa8, #4d001f);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.6s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.line {
+  color: #ffe6f0;
+  font-size: clamp(22px, 4vw, 34px);
+  margin: 14px 24px;
+  animation: fadeUp 1.5s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating hearts */
+.float {
+  position: fixed;
+  bottom: -30px;
+  font-size: 26px;
+  animation: rise linear forwards;
+}
+
+@keyframes rise {
+  to {
+    transform: translateY(-120vh) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+/* Sparkles */
+.sparkle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: gold;
+  border-radius: 50%;
+  animation: sparkle 1.8s linear forwards;
+}
+
+@keyframes sparkle {
+  to {
+    transform: translateY(-80vh) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Wine glasses */
+.glasses {
+  font-size: 60px;
+  margin-bottom: 20px;
+  animation: clink 1.2s ease forwards;
+}
+
+@keyframes clink {
+  0% { transform: scale(0.8) rotate(-10deg); }
+  50% { transform: scale(1.1) rotate(10deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+  <div class="title">Will you be my Valentine, Pruthvi? 💗</div>
+
+<button id="yes">YES 💖 
+
+  <button id="no">No 🙈</button>
+
+
+  <div class="reveal" id="reveal">
+    <div class="glasses">🍷🥂</div>
+    <div class="line"> (っ◔◡◔)っ 💖 You didn’t just enter my life 💖 ...</div>
+    <div class="line"> you became the reason my heart smiles ✨ </div>
+    <div class="line">Today, tomorrow, always — it’s you 💕</div>
+    <div class="line">So what say, Dinner on feb 14 😉 ?
+      
+  </div>
+</div>
+
+<audio id="music">
+  <source src="MP3.m4a" type="audio/mp4">
+</audio>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const reveal = document.getElementById("reveal");
+const music = document.getElementById("music");
+
+/* NO button — HARD viewport clamp */
+function moveNoSafely() {
+  const pad = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - pad;
+  const maxY = window.innerHeight - noBtn.offsetHeight - pad;
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+}
+
+noBtn.addEventListener("mouseenter", moveNoSafely);
+noBtn.addEventListener("touchstart", moveNoSafely);
+
+/* YES */
+yesBtn.addEventListener("click", () => {
+  reveal.classList.add("show");
+  fadeInMusic();
+  heartsAndSparkles();
+});
+
+/* Music fade */
+function fadeInMusic() {
+  music.volume = 0;
+  music.play();
+  let v = 0;
+  const i = setInterval(() => {
+    v += 0.03;
+    music.volume = v;
+    if (v >= 1) clearInterval(i);
+  }, 120);
+}
+
+/* Hearts + sparkles */
+function heartsAndSparkles() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "float";
+    h.innerHTML = Math.random() > 0.5 ? "💖" : "💛";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (6 + Math.random() * 6) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 12000);
+  }, 400);
+
+  setInterval(() => {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.bottom = "0px";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 2000);
+  }, 120);
+}
+</script>
+
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
